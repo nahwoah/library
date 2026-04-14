@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +8,11 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js" async></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
     <table>
         <tr>
@@ -19,9 +22,21 @@
             <th>Pages</th>
             <th>Read</th>
         </tr>
-        <!-- <tr>
-            <td>12312</td>
-        </tr> -->
     </table>
+    <button command="show-modal" commandfor="new-book">New Book</button>
+
+    <dialog id="new-book">
+        <label for="add-title">Title</label><br>
+        <input type="text" name="add-title" id="add-title"><br>
+        <label for="add-author">Author</label><br>
+        <input type="text" name="add-author" id="add-author"><br>
+        <label for="add-pages">Pages</label><br>
+        <input type="text" name="add-pages" id="add-pages"><br>
+        <input type="checkbox" id="add-read" name="add-read" value="read">
+        <label for="add-read"> Read</label><br>
+        <button commandfor="new-book" command="close">Close</button>
+        <input type="submit" value="Submit">
+    </dialog>
 </body>
+
 </html>
