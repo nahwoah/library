@@ -29,12 +29,8 @@ function addToBookLibrary (){
 addToBookLibrary();
 console.log(myLibrary);
 
-// const tableRows = document.createElement('tr');
-// const tableData = document.createElement('td');
 
-// tableRows.textContent = myLibrary;
-
-myLibrary.forEach(item => {
+function addToTable () {myLibrary.forEach(item => {
     const tableRow = document.createElement('tr');
 
     Object.keys(item).forEach(key => {
@@ -44,8 +40,10 @@ myLibrary.forEach(item => {
     })
     table.appendChild(tableRow);
 })
+}
 
 submit.addEventListener("click", function (e){
+    addToTable();
     console.log('1');
     e.preventDefault()
 
