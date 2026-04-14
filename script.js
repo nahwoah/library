@@ -1,6 +1,13 @@
 const myLibrary = []
 const exarray = ['1', '2']
-const table = document.querySelector("table")
+const table = document.querySelector("table");
+const newbook = document.getElementById('new-book');
+const submit = newbook.querySelector('#submitBtn');
+const title = newbook.querySelector('#add-title');
+const author = newbook.querySelector('#add-author');
+const pages = newbook.querySelector('#add-pages');
+const read = newbook.querySelector('#add-read');
+
 
 function Book ( title, author, pages, read){
     this.id = crypto.randomUUID();
@@ -36,4 +43,33 @@ myLibrary.forEach(item => {
         tableRow.appendChild(tbData);
     })
     table.appendChild(tableRow);
+})
+
+submit.addEventListener("click", function (e){
+    console.log('1');
+    e.preventDefault()
+
+    const tableRow = document.createElement('tr');
+    // for (i = 0; i < 4; i++){
+
+    // }
+
+    const tdId = document.createElement('td');
+    tdId.textContent = crypto.randomUUID();
+    tableRow.appendChild(tdId);
+    const tdTitle = document.createElement('td');
+    tdTitle.textContent = title.value;
+    tableRow.appendChild(tdTitle);
+    const tdAuthor = document.createElement('td');
+    tdAuthor.textContent = author.value;
+    tableRow.appendChild(tdAuthor);
+    const tdPages = document.createElement('td');
+    tdPages.textContent = pages.value;
+    tableRow.appendChild(tdPages);
+    const tdRead = document.createElement('td');
+    tdRead.textContent = read.value;
+    tableRow.appendChild(tdRead);
+    
+    table.appendChild(tableRow);
+    newbook.close();
 })
