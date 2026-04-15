@@ -1,73 +1,74 @@
 const myLibrary = []
 const exarray = ['1', '2']
 const table = document.querySelector("table");
+const tbody = document.querySelector("tbody");
 const newbook = document.getElementById('new-book');
 const submit = newbook.querySelector('#submitBtn');
-const title = newbook.querySelector('#add-title');
-const author = newbook.querySelector('#add-author');
-const pages = newbook.querySelector('#add-pages');
-const read = newbook.querySelector('#add-read');
+const add_title = newbook.querySelector('#add-title');
+const add_author = newbook.querySelector('#add-author');
+const add_pages = newbook.querySelector('#add-pages');
+const add_read = newbook.querySelector('#add-read');
 
 
-function Book ( title, author, pages, read){
+function Book(title, author, pages, read) {
     this.id = crypto.randomUUID();
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+    this.delete = function deleteRow(r) {
+        let i = r.parentNode.parentNode.rowIndex;
+        document.getElementById("myTable").deleteRow(i);
+    }
 }
 
-function addToBookLibrary (){
-    const book1 = new Book("Hobbit", "tolkien", 200, false);
+function addToBookLibrary() {
+    const book = new Book(add_title.value, add_author.value, add_pages.value, add_read.value)
+    // const book1 = new Book("Hobbit", "tolkien", 200, false);
+    // const book2 = new Book("lotr", "tolkien", 300, false);
+    // const book3 = new Book("Silm", "tolkien", 400, false);
 
-    const book2 = new Book("lotr", "tolkien", 300, false);
-    
-    const book3 = new Book("Silm", "tolkien", 400, false);
-    myLibrary.push(book1, book2, book3);
+    myLibrary.push(book);
+    console.log(myLibrary);
 }
 
-addToBookLibrary();
-console.log(myLibrary);
+function clearTable() {
+    while (tbody.rows.length > 0){
+        tbody.deleteRow(0);
+    }
+}
 
+function addToTable() {
+    // clearTable();
+    tbody.innerHTML = "";
+    myLibrary.forEach(item => {
+        const tableRow = document.createElement('tr');
 
-function addToTable () {myLibrary.forEach(item => {
-    const tableRow = document.createElement('tr');
-
-    Object.keys(item).forEach(key => {
-        const tbData = document.createElement('td');
-        tbData.textContent = item[key];
-        tableRow.appendChild(tbData);
+        Object.keys(item).forEach(key => {
+            const tbData = document.createElement('td');
+            tbData.textContent = item[key];
+            tableRow.appendChild(tbData);
+        })
+        tbody.appendChild(tableRow);
     })
-    table.appendChild(tableRow);
-})
 }
 
-submit.addEventListener("click", function (e){
-    addToTable();
-    console.log('1');
+submit.addEventListener("click", function (e) {
+
     e.preventDefault()
 
-    const tableRow = document.createElement('tr');
-    // for (i = 0; i < 4; i++){
+    addToBookLibrary();
+    addToTable();
 
-    // }
-
-    const tdId = document.createElement('td');
-    tdId.textContent = crypto.randomUUID();
-    tableRow.appendChild(tdId);
-    const tdTitle = document.createElement('td');
-    tdTitle.textContent = title.value;
-    tableRow.appendChild(tdTitle);
-    const tdAuthor = document.createElement('td');
-    tdAuthor.textContent = author.value;
-    tableRow.appendChild(tdAuthor);
-    const tdPages = document.createElement('td');
-    tdPages.textContent = pages.value;
-    tableRow.appendChild(tdPages);
-    const tdRead = document.createElement('td');
-    tdRead.textContent = read.value;
-    tableRow.appendChild(tdRead);
-    
-    table.appendChild(tableRow);
     newbook.close();
+    add_title.value = ''
+    add_author.value = ''
+    add_pages.value = ''
+    newbook.querySelector('#add-read').value = '';
+
 })
+
+function deleteRow(r) {
+    let i = r.parentNode.parentNode.rowIndex;
+    document.getElementById("myTable").deleteRow(i);
+}

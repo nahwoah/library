@@ -15,13 +15,18 @@
 
 <body>
     <table>
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Pages</th>
-            <th>Read</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Pages</th>
+                <th>Read</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
     </table>
     <button command="show-modal" commandfor="new-book">New Book</button>
 
@@ -32,7 +37,7 @@
         <input type="text" name="add-author" id="add-author"><br>
         <label for="add-pages">Pages</label><br>
         <input type="text" name="add-pages" id="add-pages"><br>
-        <input type="checkbox" id="add-read" name="add-read" value="true">
+        <input type="checkbox" id="add-read" name="add-read">
         <label for="add-read"> Read</label><br>
         <button commandfor="new-book" command="close">Close</button>
         <button id="submitBtn" value="default">Submit</button>
