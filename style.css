@@ -6,22 +6,32 @@ body{
 
 table {
   /* border-collapse: collapse; */
+  border-collapse: separate;
   width: 100%;
 }
 
 th, td {
   text-align: left;
   padding: 8px;
+  box-sizing: border-box;
+  margin: 0;
   /* border-left: 1px solid black;
   border-right: 1px solid black; */
+  
+}
+
+button{
+  box-sizing: border-box;
+  margin: 0;
 }
 
 /* tr{
     border: 1px solid black;
 } */
 
-table tr:nth-child(even) {
+tbody tr:nth-child(odd) {
   background-color: #1c5448;
+  border-collapse: separate;
 }
 
 /* td:nth-child(odd), th:nth-child(odd) {

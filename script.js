@@ -7,6 +7,7 @@ const add_title = newbook.querySelector('#add-title');
 const add_author = newbook.querySelector('#add-author');
 const add_pages = newbook.querySelector('#add-pages');
 const add_read = newbook.querySelector('#add-read');
+// const add_read = newbook.querySelector('input[name="add-read"]');
 
 
 function Book(title, author, pages, read) {
@@ -15,25 +16,29 @@ function Book(title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.delete = function deleteRow() {
-        // const deleteBtn = document.createElement('button');
-        // deleteBtn.textContent = 'Delete';
-        // tableRow.appendChild(deleteBtn);
-        // let i = this.parentNode.parentNode.rowIndex;
-        document.querySelector()
-        deleteBtn.onclick = 
-        document.querySelector("tbody").deleteRow(this);
+    this.change_read = function(read){
+        const readBtn = document.querySelector('button');
+        readBtn.onclick = function(){
+            if (read === false){
+                read = true;
+                readBtn.textContent = '✅ ' + read;
+            }else{
+                read = false;
+                readBtn.textContent = '❌ ' + read;
+            }
+        }
+        console.log(readBtn)
     }
 }
 
 function addToBookLibrary() {
-    const book = new Book(add_title.value, add_author.value, add_pages.value, add_read.value)
+    const book = new Book(add_title.value, add_author.value, add_pages.value, add_read.checked)
     // const book1 = new Book("Hobbit", "tolkien", 200, false);
     // const book2 = new Book("lotr", "tolkien", 300, false);
     // const book3 = new Book("Silm", "tolkien", 400, false);
 
     myLibrary.push(book);
-    console.log(myLibrary);
+    
 }
 
 function clearTable() {
@@ -44,16 +49,43 @@ function clearTable() {
 
 function addToTable() {
     clearTable();
+    
+
     myLibrary.forEach(item => {
         const tableRow = document.createElement('tr');
 
+
         Object.keys(item).forEach((key, idx) => {
-            if (idx === Book.length +1) {
-                console.log(Book.length, idx);
+            
+            if (idx === Book.length) {
+                const tdRead = document.createElement('td');
+                const readBtn = document.createElement('button');
+                if(!item.read === true){
+                    readBtn.textContent = '❌ '+ item[key];
+                }else{
+                    readBtn.textContent = '✅ '+ item[key];
+                }
+                
+                readBtn.setAttribute("data-read", item.id);
+                tableRow.appendChild(tdRead)
+                tdRead.appendChild(readBtn);
+
+
+
+                const tdDel = document.createElement('td');
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'Delete';
-                tableRow.appendChild(deleteBtn);
-            }else{
+
+
+                deleteBtn.onclick = function () {
+
+                    tableRow.remove();
+                    myLibrary.splice(myLibrary.findIndex(el => el.id === item.id), 1);
+                }
+
+                tableRow.appendChild(tdDel);
+                tdDel.appendChild(deleteBtn);
+            } else if (idx <= Book.length -1) {
                 const tbData = document.createElement('td');
                 tbData.textContent = item[key];
                 tableRow.appendChild(tbData);
@@ -75,11 +107,11 @@ submit.addEventListener("click", function (e) {
     addToTable();
 
     newbook.close();
-    add_title.value = ''
-    add_author.value = ''
-    add_pages.value = ''
-    newbook.querySelector('#add-read').value = '';
-
+    add_title.value = '';
+    add_author.value = '';
+    add_pages.value = '';
+    add_read.checked = false;
+    console.log(myLibrary);
 })
 
 // function deleteRow(r) {
