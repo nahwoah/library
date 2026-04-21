@@ -16,19 +16,6 @@ function Book(title, author, pages, read) {
     this.author = author;
     this.pages = pages;
     this.read = read;
-    this.change_read = function(read){
-        const readBtn = document.querySelector('button');
-        readBtn.onclick = function(){
-            if (read === false){
-                read = true;
-                readBtn.textContent = '✅ ' + read;
-            }else{
-                read = false;
-                readBtn.textContent = '❌ ' + read;
-            }
-        }
-        console.log(readBtn)
-    }
 }
 
 function addToBookLibrary() {
@@ -38,7 +25,7 @@ function addToBookLibrary() {
     // const book3 = new Book("Silm", "tolkien", 400, false);
 
     myLibrary.push(book);
-    
+
 }
 
 function clearTable() {
@@ -49,23 +36,23 @@ function clearTable() {
 
 function addToTable() {
     clearTable();
-    
+
 
     myLibrary.forEach(item => {
         const tableRow = document.createElement('tr');
 
 
         Object.keys(item).forEach((key, idx) => {
-            
+
             if (idx === Book.length) {
                 const tdRead = document.createElement('td');
                 const readBtn = document.createElement('button');
-                if(!item.read === true){
-                    readBtn.textContent = '❌ '+ item[key];
-                }else{
-                    readBtn.textContent = '✅ '+ item[key];
+                if (!item.read === true) {
+                    readBtn.textContent = '❌ ' + item[key];
+                } else {
+                    readBtn.textContent = '✅ ' + item[key];
                 }
-                
+
                 readBtn.setAttribute("data-read", item.id);
                 tableRow.appendChild(tdRead)
                 tdRead.appendChild(readBtn);
@@ -85,7 +72,7 @@ function addToTable() {
 
                 tableRow.appendChild(tdDel);
                 tdDel.appendChild(deleteBtn);
-            } else if (idx <= Book.length -1) {
+            } else if (idx <= Book.length - 1) {
                 const tbData = document.createElement('td');
                 tbData.textContent = item[key];
                 tableRow.appendChild(tbData);
@@ -98,6 +85,7 @@ function addToTable() {
         tbody.appendChild(tableRow);
     })
 }
+
 
 submit.addEventListener("click", function (e) {
 
@@ -114,7 +102,20 @@ submit.addEventListener("click", function (e) {
     console.log(myLibrary);
 })
 
-// function deleteRow(r) {
-//     let i = r.parentNode.parentNode.rowIndex;
-//     document.getElementById("myTable").deleteRow(i);
-// }
+const readBtn = document.querySelector('[data-read="this.id"]');
+console.log(readBtn)
+
+Book.prototype.changeRead = function () {
+    const readBtn = document.querySelector('[data-read="this.id"]');
+    console.log(readBtn);
+    readBtn.onclick = function () {
+        if (read === false) {
+            read = true;
+            readBtn.textContent = '✅ ' + read;
+        } else {
+            read = false;
+            readBtn.textContent = '❌ ' + read;
+        }
+    }
+}
+
