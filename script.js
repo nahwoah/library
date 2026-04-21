@@ -7,7 +7,7 @@ const add_title = newbook.querySelector('#add-title');
 const add_author = newbook.querySelector('#add-author');
 const add_pages = newbook.querySelector('#add-pages');
 const add_read = newbook.querySelector('#add-read');
-// const add_read = newbook.querySelector('input[name="add-read"]');
+
 
 
 function Book(title, author, pages, read) {
@@ -20,13 +20,19 @@ function Book(title, author, pages, read) {
 
 function addToBookLibrary() {
     const book = new Book(add_title.value, add_author.value, add_pages.value, add_read.checked)
-    // const book1 = new Book("Hobbit", "tolkien", 200, false);
-    // const book2 = new Book("lotr", "tolkien", 300, false);
-    // const book3 = new Book("Silm", "tolkien", 400, false);
 
     myLibrary.push(book);
 
 }
+
+Book.prototype.changeRead = function () {
+    if (!this.read) {
+        this.read = true;
+    } else {
+        this.read = false;
+    }
+}
+
 
 function clearTable() {
     while (tbody.rows.length > 0) {
@@ -47,10 +53,20 @@ function addToTable() {
             if (idx === Book.length) {
                 const tdRead = document.createElement('td');
                 const readBtn = document.createElement('button');
-                if (!item.read === true) {
+                if (!item.read) {
                     readBtn.textContent = '❌ ' + item[key];
                 } else {
                     readBtn.textContent = '✅ ' + item[key];
+                }
+
+                readBtn.onclick = function () {
+                    item.changeRead();
+                    if (item.read) {
+                        readBtn.textContent = '✅ ' + item[key];
+                    } else {
+                        readBtn.textContent = '❌ ' + item[key];
+                    }
+                    
                 }
 
                 readBtn.setAttribute("data-read", item.id);
@@ -78,9 +94,6 @@ function addToTable() {
                 tableRow.appendChild(tbData);
             }
 
-            // const tbData = document.createElement('td');
-            // tbData.textContent = item[key];
-            // tableRow.appendChild(tbData);
         })
         tbody.appendChild(tableRow);
     })
@@ -99,23 +112,5 @@ submit.addEventListener("click", function (e) {
     add_author.value = '';
     add_pages.value = '';
     add_read.checked = false;
-    console.log(myLibrary);
+
 })
-
-const readBtn = document.querySelector('[data-read="this.id"]');
-console.log(readBtn)
-
-Book.prototype.changeRead = function () {
-    const readBtn = document.querySelector('[data-read="this.id"]');
-    console.log(readBtn);
-    readBtn.onclick = function () {
-        if (read === false) {
-            read = true;
-            readBtn.textContent = '✅ ' + read;
-        } else {
-            read = false;
-            readBtn.textContent = '❌ ' + read;
-        }
-    }
-}
-
